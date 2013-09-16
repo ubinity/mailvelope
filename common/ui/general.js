@@ -37,7 +37,8 @@
       general: {
         editor_type: $('input:radio[name="editorRadios"]:checked').val(),
         primary_key: $('#primaryKey > option:selected').val(),
-        auto_add_primary: $('#autoAddPrimary:checked').length !== 0
+              auto_add_primary: $('#autoAddPrimary:checked').length !== 0,
+        reader_name: $('#smartcardReader > option:selected').val()
       }
     }
     keyRing.sendMessage({ event: 'set-prefs', data: update }, function() {
@@ -68,6 +69,8 @@
   function initPrimarySelect(callback) {
     $('#primaryKey').empty()
                     .append($('<option/>'));
+    loadReaders(function(){
+    });
     loadPrivateKeys(function() {
       clearPrimarySelect();
       callback();
@@ -116,6 +119,20 @@
     });
   }
 
+  function loadReaders(callback) {
+    alert("loadReaders");
+    keyRing.viewModel('getReaders', function(readers) {
+      var select = $('#smartcardReader');
+      readers.forEach(function(reader) {
+        select.append($('<option/>', {
+          value: reader,
+          text: reader
+        }));
+      });
+      callback();
+    });
+  }
+
   function loadPrefs(callback) {
     keyRing.viewModel('getPreferences', function(prefs) {
       $('input:radio[name="editorRadios"]').filter(function() {
@@ -127,6 +144,9 @@
       if (prefs.general.auto_add_primary) {
         $('#autoAddPrimary').attr('checked', 'checked');
       }
+      $('#smartcardReader > option').filter(function() {
+          return $(this).val() === prefs.general.reader_name;
+      }).attr('selected', 'selected');
       onPrimaryChange();
       if (callback) callback(prefs);
     });

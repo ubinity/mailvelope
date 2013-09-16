@@ -74,10 +74,16 @@ define(function(require, exports, module) {
     return result;
   }
 
+  function getReaders() {
+          var res = openpgp.pgpsc.scard.listReaders();
+          return res;
+  }
+
   exports.getKeys = getKeys;
   exports.getPublicKeys = getPublicKeys;
   exports.getPrivateKeys = getPrivateKeys;
-  
+  exports.getReaders = getReaders;
+
   function mapKeyMsg(obj, toKey) {
     // fingerprint used as UID
     toKey.guid = obj.getFingerprint();

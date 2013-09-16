@@ -26,6 +26,7 @@ For Firefox only from source. Development branch: https://github.com/toberndo/ma
     cd mailvelope
     git submodule init
     git submodule update
+    make build-cs
     make build
 
 ## Website

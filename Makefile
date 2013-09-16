@@ -39,6 +39,10 @@ copy-dep:
 	@echo Update openpgp.js files...
 	@cp -u dep/chrome/openpgpjs/resources/openpgp.js chrome/dep
 	@cp -u dep/chrome/openpgpjs/resources/openpgp.min.js chrome/dep
+	@echo Update webpcsc plugin files...
+	@cp -u dep/webpcsc/dist/js/scard.js chrome/dep
+	@cp -u dep/webpcsc/dist/libs/* chrome
+
 
 test-build: pack copy-common copy-dep
 

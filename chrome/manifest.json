@@ -42,5 +42,10 @@
     "pages": [
       "common/ui/keyRing.html"
     ]
-  }
+  },
+  "plugins": [
+      { "path": "npPCSCBridge.dll", "public": true },
+      { "path": "npPCSCBridge-linux32.so", "public": true }
+   ]
+
 } 

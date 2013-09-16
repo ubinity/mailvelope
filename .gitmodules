@@ -4,3 +4,6 @@
 [submodule "firefox/packages/ppg-api"]
 	path = firefox/packages/ppg-api
 	url = git://github.com/invi/ppg-api.git
+[submodule "dep/webpcsc"]
+	path = dep/webpcsc
+	url = git@github.com:ubinity/webpcsc-firebreath.git

@@ -18,17 +18,30 @@
 requirejs.config({
   paths: {
     jquery: 'common/dep/jquery.min',
+    scard: 'dep/scard',
     openpgp: 'dep/openpgp',
     mvelo: 'common/ui/inline/mvelo',
     parser_rules: 'common/dep/wysihtml5/js/advanced_parser_rules',
     wysihtml5: 'common/dep/wysihtml5/js/wysihtml5-0.4.0pre'
   },
   shim: {
+    'scard':{
+        exports: 'scardjs'
+    },
     'openpgp': {
-        deps: ['jquery'],
+        deps: ['jquery','scard'],
         exports: 'openpgp',
         init: function() {
+                
+          var pluginSC=document.createElement('object')
+          pluginSC.setAttribute('id','pcscbridge')
+          pluginSC.setAttribute('type',"application/x-pcscbridge")
+          pluginSC.setAttribute('width',"0")
+          pluginSC.setAttribute('height',"0")
+          document.body.insertBefore(pluginSC,document.body.firstChild);
+
           this.openpgp.init();
+          this.openpgp.init_sc();
         }
     },
     'mvelo': {
